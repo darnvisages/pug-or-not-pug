@@ -1,5 +1,6 @@
 {
   "name": "pugdetector",
+  "homepage": "https://darnvisages.github.io/pug-or-not-pug",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +8,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.0",
     "clarifai": "^2.9.1",
+    "gh-pages": "^2.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-particles-js": "^2.7.0",
@@ -15,6 +17,8 @@
     "tachyons": "^4.11.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
