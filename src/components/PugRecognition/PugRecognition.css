@@ -1,5 +1,5 @@
 #inputimage {
-	width: 500px;
+	width: 900px;
 	height: auto;
 }
 
@@ -13,18 +13,25 @@
 }
 
 #result {
-	background: rgba(255, 255, 255, 0.25);
+	background: rgba(255, 255, 255, 0.5);
 	display: block;
 }
 
 @media only screen and (max-width: 600px) {
+	#inputimage {
+		width: 500px;
+		height: auto;
+	}
+}
+
+@media only screen and (max-width: 500px) {
 	#inputimage {
 		width: 400px;
 		height: auto;
 	}
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 400px) {
 	#inputimage {
 		width: 300px;
 		height: auto;
