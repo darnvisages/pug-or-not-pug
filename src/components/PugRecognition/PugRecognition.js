@@ -26,7 +26,7 @@ const PugRecognition = ( { imageUrl, boxes, isPug, isThinking }) => {
 				</div>
 				<div className='center ma0'>
 					<div className='center absolute mt2 mb5'>
-						<img  alt='' id='inputimage' className='br3' src={imageUrl} />
+						<img  alt='' id='inputimage' className='br3 shadow-3' src={imageUrl} />
 						{ boxes.length > 0 ? boxList : <div></div> }
 					</div>
 				</div>

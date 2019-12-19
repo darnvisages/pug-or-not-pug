@@ -10,7 +10,7 @@ const ImageLinkForm = ({ onInputChange, onKeyPress, onButtonSubmit }) => {
 				{'Enter a URL to try it out!'}
 			</p>
 			<div className='w-100'>
-				<div className='w-100 center stairs pa3 br3 shadow-5'>
+				<div className='w-100 center carbon pa3 br3 shadow-5'>
 					<input className='f4 pa2 w-70 center' type='text' onChange={onInputChange} onKeyPress={onKeyPress} />
 					<button 
 						className='w-30 grow f4 link ph3 pv2 dib white bg-gray'
