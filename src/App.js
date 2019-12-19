@@ -22,6 +22,7 @@ class App extends Component {
       input: '',
       imageUrl: '',
       boxes: {},
+      isPug: false,
       route: 'signin',
       isSignedIn: false
     }
@@ -29,19 +30,25 @@ class App extends Component {
 
   calculateFaceLocation = (response) => {
     const clarifaiFaces = response.outputs[0].data.regions;
-    return clarifaiFaces.map(region => {
-      const clarifaiFace = region.region_info.bounding_box;
-      const image = document.getElementById('inputimage');
-      const width = Number(image.width);
-      const height = Number(image.height);
-      console.log(width, height);
-      return {
-        leftCol: clarifaiFace.left_col * width,
-        topRow: clarifaiFace.top_row * height,
-        rightCol: width - (clarifaiFace.right_col * width),
-        bottomRow: height - (clarifaiFace.bottom_row * height)
-      }
-    }) 
+    let returnBoxes = {};
+    try {
+      returnBoxes = clarifaiFaces.map(region => {
+        const clarifaiFace = region.region_info.bounding_box;
+        const image = document.getElementById('inputimage');
+        const width = Number(image.width);
+        const height = Number(image.height);
+        console.log(width, height);
+        return {
+          leftCol: clarifaiFace.left_col * width,
+          topRow: clarifaiFace.top_row * height,
+          rightCol: width - (clarifaiFace.right_col * width),
+          bottomRow: height - (clarifaiFace.bottom_row * height)
+        }
+      }) 
+    } catch (err) {
+      // nothing to do 
+    }
+    return returnBoxes;
   }
 
   displayFaceBox = (boxes) => {
@@ -74,8 +81,8 @@ class App extends Component {
           }
           }
         );
-
-        console.log(results);
+        this.setState({isPug: 'pug' in results});
+        console.log('pug search results', results);
       });
     
     // get facial recognition data
@@ -98,7 +105,7 @@ class App extends Component {
   }
 
   render () {
-    const { isSignedIn, imageUrl, route, boxes } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isPug } = this.state;
     return (
       <div className="App">
         
@@ -119,6 +126,7 @@ class App extends Component {
               onButtonSubmit={this.onButtonSubmit}
             />
             <PugRecognition 
+              isPug={isPug} 
               boxes={boxes}
               imageUrl={imageUrl} 
             />

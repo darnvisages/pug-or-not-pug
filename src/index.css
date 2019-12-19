@@ -3,7 +3,6 @@
 body {
   margin: 0;
   font-family: 'Roboto Mono', monospace;
-  font-weight: bold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: radial-gradient(#BBD2C5, #536976, #292E49); /* UIGradient name: Royal Blue + Petrol ; */

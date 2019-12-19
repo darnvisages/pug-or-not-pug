@@ -11,3 +11,22 @@
 	justify-content: center;
 	cursor: pointer;
 }
+
+#result {
+	background: rgba(255, 255, 255, 0.25);
+	display: block;
+}
+
+@media only screen and (max-width: 600px) {
+	#inputimage {
+		width: 400px;
+		height: auto;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	#inputimage {
+		width: 300px;
+		height: auto;
+	}
+}
