@@ -24,7 +24,8 @@ class App extends Component {
       boxes: {},
       isPug: false,
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      isThinking: true
     }
   }
 
@@ -60,7 +61,14 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
+  keyPressed = (event) => {
+    if (event.key === "Enter") {
+      this.onButtonSubmit()
+    }
+  }
+
   onButtonSubmit = () => {
+    this.setState({isThinking: true});
     this.setState({imageUrl: this.state.input});
 
     // get general model data for dog/pug
@@ -82,6 +90,7 @@ class App extends Component {
           }
         );
         this.setState({isPug: 'pug' in results});
+        this.setState({isThinking: false});
         console.log('pug search results', results);
       });
     
@@ -92,7 +101,6 @@ class App extends Component {
         this.state.input)
       .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(err => console.log(err))
-      
   }
 
   onRouteChange = (route) => {
@@ -105,7 +113,7 @@ class App extends Component {
   }
 
   render () {
-    const { isSignedIn, imageUrl, route, boxes, isPug } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isPug, isThinking } = this.state;
     return (
       <div className="App">
         
@@ -123,9 +131,11 @@ class App extends Component {
             <Rank />
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
+              onKeyPress={this.keyPressed}
               onButtonSubmit={this.onButtonSubmit}
             />
             <PugRecognition 
+              isThinking={isThinking} 
               isPug={isPug} 
               boxes={boxes}
               imageUrl={imageUrl} 

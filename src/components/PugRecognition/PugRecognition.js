@@ -1,7 +1,7 @@
 import React from 'react';
 import './PugRecognition.css';
 
-const PugRecognition = ( { imageUrl, boxes, isPug }) => {
+const PugRecognition = ( { imageUrl, boxes, isPug, isThinking }) => {
 	let  boxList = <div></div>;
 	if (boxes.length > 0) {
 		boxList = boxes.map((box, i) => {
@@ -10,7 +10,11 @@ const PugRecognition = ( { imageUrl, boxes, isPug }) => {
 			)
 		})
 	}
-	const pugResult = isPug ? <p className='center b f1 green'>PUG</p> : <p className='center b f1 red'>NOT PUG</p>;
+	const pugResult = !isThinking 
+		? (isPug 
+			? <p className='center b f1 green'>PUG</p> 
+			: <p className='center b f1 red'>NOT PUG</p>) 
+		: (<p className='center b f1 white'>Thinking...</p>);
 	const faceResult = boxes.length > 0 ? <p className='center ma'>Pro Tip: boxes indicate faces on people. People are not pugs. <br /> Now you know.</p> : <div></div>;
 
 	if (imageUrl.length > 0)
