@@ -25,8 +25,28 @@ class App extends Component {
       isPug: false,
       route: 'signin',
       isSignedIn: false,
-      isThinking: true
+      isThinking: true,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        password: 'cookies',
+        entries: 0,
+        joined: ''
+      }
     }
+  }
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
+    })
   }
 
   calculateFaceLocation = (response) => {
@@ -128,7 +148,10 @@ class App extends Component {
         { 
           route === 'home' 
           ? <div id="home">
-            <Rank />
+            <Rank 
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onKeyPress={this.keyPressed}
@@ -143,8 +166,14 @@ class App extends Component {
           </div>
           : (
             route === 'signin' 
-            ? <SignIn onRouteChange={this.onRouteChange} />
-            : <Register onRouteChange={this.onRouteChange} />
+            ? <SignIn 
+                loadUser={this.loadUser}
+                onRouteChange={this.onRouteChange} 
+              />
+            : <Register 
+                loadUser={this.loadUser}
+                onRouteChange={this.onRouteChange} 
+              />
           )
         
         }
