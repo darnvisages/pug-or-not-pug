@@ -5,7 +5,7 @@ const ImageLinkForm = ({ onInputChange, onKeyPress, onButtonSubmit }) => {
 	return (
 		<div className=' mt0 w-100'>
 			<p className='f4'>
-				{'This essential app detects pugs in images.'}
+				{'This essential app sniffs out pugs in images.'}
 				<br />
 				{'Enter a URL to try it out!'}
 			</p>
