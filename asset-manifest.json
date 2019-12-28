@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/pug-or-not-pug/static/css/main.b37d6aca.chunk.css",
+    "main.css": "/pug-or-not-pug/static/css/main.f6b46d76.chunk.css",
     "main.js": "/pug-or-not-pug/static/js/main.ba2f6807.chunk.js",
     "main.js.map": "/pug-or-not-pug/static/js/main.ba2f6807.chunk.js.map",
     "runtime-main.js": "/pug-or-not-pug/static/js/runtime-main.ccc4a8fb.js",
@@ -9,10 +9,10 @@
     "static/js/2.1ce01984.chunk.js": "/pug-or-not-pug/static/js/2.1ce01984.chunk.js",
     "static/js/2.1ce01984.chunk.js.map": "/pug-or-not-pug/static/js/2.1ce01984.chunk.js.map",
     "index.html": "/pug-or-not-pug/index.html",
-    "precache-manifest.7090851e2c473b52c7cdfa9e5feb7f05.js": "/pug-or-not-pug/precache-manifest.7090851e2c473b52c7cdfa9e5feb7f05.js",
+    "precache-manifest.634a137a58ae9614cafadac820c08742.js": "/pug-or-not-pug/precache-manifest.634a137a58ae9614cafadac820c08742.js",
     "service-worker.js": "/pug-or-not-pug/service-worker.js",
     "static/css/2.eb45ad44.chunk.css.map": "/pug-or-not-pug/static/css/2.eb45ad44.chunk.css.map",
-    "static/css/main.b37d6aca.chunk.css.map": "/pug-or-not-pug/static/css/main.b37d6aca.chunk.css.map",
+    "static/css/main.f6b46d76.chunk.css.map": "/pug-or-not-pug/static/css/main.f6b46d76.chunk.css.map",
     "static/js/2.1ce01984.chunk.js.LICENSE": "/pug-or-not-pug/static/js/2.1ce01984.chunk.js.LICENSE",
     "static/media/pug_logo.png": "/pug-or-not-pug/static/media/pug_logo.55b333b4.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.ccc4a8fb.js",
     "static/css/2.eb45ad44.chunk.css",
     "static/js/2.1ce01984.chunk.js",
-    "static/css/main.b37d6aca.chunk.css",
+    "static/css/main.f6b46d76.chunk.css",
     "static/js/main.ba2f6807.chunk.js"
   ]
 }
