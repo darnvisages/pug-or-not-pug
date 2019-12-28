@@ -6,7 +6,8 @@ class Register extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			name: ''
+			name: '',
+			registerFailed: false
 		}
 	}
 
@@ -23,7 +24,7 @@ class Register extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch('http://localhost:3000/register', {
+		fetch('https://thawing-depths-15865.herokuapp.com/register', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -34,13 +35,24 @@ class Register extends React.Component {
 		})
 			.then(response => response.json())
 			.then(user => {
-				if (user) {
+				if (user.id) {
+					this.setState({registerFailed: false});
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');			
+				} else {
+					this.setState({registerFailed: true});
 				}
 			})
-		
+			.catch(err => {
+				this.setState({registerFailed: true});
+			})
 	}
+
+	keyPressed = (event) => {
+	    if (event.key === "Enter") {
+	      this.onSubmitSignIn()
+	    }
+	  }
 
 	render () {
 		return (
@@ -57,6 +69,7 @@ class Register extends React.Component {
 				        	name="name"  
 				        	id="name" 
 				        	onChange={this.onNameChange}
+				        	onKeyPress={this.keyPressed}
 				        />
 				      </div>
 				      <div className="mt3">
@@ -67,6 +80,7 @@ class Register extends React.Component {
 				        	name="email-address"  
 				        	id="email-address" 
 				        	onChange={this.onEmailChange}
+				        	onKeyPress={this.keyPressed}
 				        />
 				      </div>
 				      <div className="mv3">
@@ -77,9 +91,16 @@ class Register extends React.Component {
 				        	name="password"  
 				        	id="password" 
 				        	onChange={this.onPasswordChange}
+				        	onKeyPress={this.keyPressed}
 				        />
 				      </div>
 				    </fieldset>
+				    <div className="lh-copy mt3">
+				      {this.state.registerFailed 
+				      	? <p className="f6 link red db">Registration failed.</p>
+				      	: ''
+					   }
+				    </div>
 				    <div className="">
 				      <input 
 				      	onClick={this.onSubmitSignIn}

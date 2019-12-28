@@ -9,32 +9,29 @@ import Rank from './components/Rank/Rank.js';
 import Title from './components/Title/Title.js';
 import PugRecognition from './components/PugRecognition/PugRecognition.js';
 import './App.css';
-import Clarifai from 'clarifai';
 
-const app = new Clarifai.App({
- apiKey: '85b2c0bb35bb4922b6c1166ab9c63611'
-});
+const initialState = {
+    input: '',
+    imageUrl: '',
+    boxes: {},
+    isPug: false,
+    route: 'signin',
+    isSignedIn: false,
+    isThinking: true,
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      password: 'cookies',
+      entries: 0,
+      joined: ''
+    }
+  }
 
 class App extends Component {
   constructor () {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      boxes: {},
-      isPug: false,
-      route: 'signin',
-      isSignedIn: false,
-      isThinking: true,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        password: 'cookies',
-        entries: 0,
-        joined: ''
-      }
-    }
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -92,10 +89,14 @@ class App extends Component {
     this.setState({imageUrl: this.state.input});
 
     // get general model data for dog/pug
-    app.models.initModel({id: Clarifai.GENERAL_MODEL, version: "aa7f35c01e0642fda5cf400f543e7c40"})
-      .then(generalModel => {
-        return generalModel.predict(this.state.input);
+    fetch('https://thawing-depths-15865.herokuapp.com/image/pug', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
       })
+      .then(response => response.json())
       .then(response => {
         console.log(response);
         let concepts = response['outputs'][0]['data']['concepts'];
@@ -115,13 +116,17 @@ class App extends Component {
       });
     
     // get facial recognition data
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
+    fetch('https://thawing-depths-15865.herokuapp.com/image/faces', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
       .then(response => {
           if (response) {
-            fetch('http://localhost:3000/profile/update', {
+            fetch('https://thawing-depths-15865.herokuapp.com/profile/update', {
               method: 'put',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -131,7 +136,8 @@ class App extends Component {
             .then(response => response.json())
             .then(count => {
               this.setState(Object.assign(this.state.user, {entries: count}))
-            });
+            })
+            .catch(console.log)
           }
           this.displayFaceBox(this.calculateFaceLocation(response));
         })
@@ -140,7 +146,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signin') {
-      this.setState({isSignedIn: false});
+      this.setState(initialState);
     } else if (route === 'home') {
       this.setState({isSignedIn: true});
     }
@@ -221,30 +227,6 @@ const particleOptions = {
       "speed": 1,
       "direction": "top",
       "out_mode": "out"
-    }
-  },
-  "interactivity": {
-    "events": {
-      "onhover": {
-        "enable": true,
-        "mode": "bubble"
-      },
-      "onclick": {
-        "enable": true,
-        "mode": "repulse"
-      }
-    },
-    "modes": {
-      "bubble": {
-        "distance": 250,
-        "duration": 2,
-        "size": 0,
-        "opacity": 0
-      },
-      "repulse": {
-        "distance": 400,
-        "duration": 4
-      }
     }
   }
 }

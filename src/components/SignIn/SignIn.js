@@ -6,7 +6,8 @@ class SignIn extends React.Component {
 		super();
 		this.state = {
 			signInEmail: '',
-			signInPassword: ''
+			signInPassword: '',
+			signInFailed: false
 		}
 	}
 
@@ -19,7 +20,7 @@ class SignIn extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch('http://localhost:3000/signin', {
+		fetch('https://thawing-depths-15865.herokuapp.com/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -30,11 +31,23 @@ class SignIn extends React.Component {
 			.then(response => response.json())
 			.then(user => {
 				if (user.id) {
+					console.log('user', user);
+					this.setState({signInFailed: false});
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');			
+				} else {
+					this.setState({signInFailed: true});
 				}
 			})
-		
+			.catch(err => {
+				this.setState({signInFailed: true});
+			})
+	}
+
+	keyPressed = (event) => {
+	    if (event.key === "Enter") {
+	      this.onSubmitSignIn()
+	    }
 	}
 
 	render() {
@@ -53,6 +66,7 @@ class SignIn extends React.Component {
 				        	name="email-address"  
 				        	id="email-address" 
 				        	onChange={this.onEmailChange}
+				        	onKeyPress={this.keyPressed}
 				        />
 				      </div>
 				      <div className="mv3">
@@ -63,9 +77,16 @@ class SignIn extends React.Component {
 				        	name="password"  
 				        	id="password" 
 				        	onChange={this.onPasswordChange}
+				        	onKeyPress={this.keyPressed}
 				        />
 				      </div>
 				    </fieldset>
+				    <div className="lh-copy mt3">
+				      {this.state.signInFailed 
+				      	? <p className="f6 link red db">Sign in failed. </p>
+				      	: ''
+					   }
+				    </div>
 				    <div className="">
 				      <input 
 				      	onClick={this.onSubmitSignIn}
