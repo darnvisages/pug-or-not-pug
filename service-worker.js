@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pug-or-not-pug/precache-manifest.c131b82c128254241f81d95b20e2fa59.js"
+  "/pug-or-not-pug/precache-manifest.0b7d745dbaf2fc6a736fe79e017326fa.js"
 );
 
 self.addEventListener('message', (event) => {
